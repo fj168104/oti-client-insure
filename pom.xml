@@ -24,7 +24,7 @@
             <artifactId>tool-all</artifactId>
             <version>${oti.client}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/test/libs/oti-client-0.0.1-SNAPSHOT.jar</systemPath>
+            <systemPath>${basedir}/src/main/libs/oti-client-0.0.1-SNAPSHOT.jar</systemPath>
         </dependency>
 
         <!--mr oti客户端 -->
@@ -33,7 +33,7 @@
             <artifactId>oti-client</artifactId>
             <version>${mr.framework.version}</version>
             <scope>system</scope>
-            <systemPath>${basedir}/src/test/libs/mr-framework-tool-0.0.4.jar</systemPath>
+            <systemPath>${basedir}/src/main/libs/mr-framework-tool-0.0.4.jar</systemPath>
         </dependency>
 
 

@@ -14,7 +14,7 @@ import java.util.Objects;
  */
 public class ETopAgent implements ProtocolAgent {
 	private int timeout = -1;
-	private LinkedHashMap<String, String> paramMap;
+	private Map<String, Object> paramMap;
 	private static int RANDOM_STRING_LENGTH = 32;
 	private static String VERSION = "1.0.0";
 
@@ -36,7 +36,7 @@ public class ETopAgent implements ProtocolAgent {
 	 * GET请求
 	 * @param paramMap
 	 */
-	public ETopAgent(LinkedHashMap<String, String> paramMap) {
+	public ETopAgent(Map<String, Object> paramMap) {
 		this.paramMap = paramMap;
 	}
 
@@ -44,7 +44,7 @@ public class ETopAgent implements ProtocolAgent {
 	 * GET请求
 	 * @param paramMap
 	 */
-	public ETopAgent(LinkedHashMap<String, String> paramMap, int timeout) {
+	public ETopAgent(Map<String, Object> paramMap, int timeout) {
 		this.paramMap = paramMap;
 		this.timeout = timeout;
 	}
@@ -71,7 +71,7 @@ public class ETopAgent implements ProtocolAgent {
 		}
 	}
 
-	private String toUrlParamString(LinkedHashMap<String, String> paramMap) {
+	private String toUrlParamString(Map<String, Object> paramMap) {
 		StringBuffer sb = new StringBuffer();
 		if (CollectionUtil.isNotEmpty(paramMap)) {
 			sb.append("?");
