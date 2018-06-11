@@ -56,7 +56,7 @@ public class ETopAgent implements ProtocolAgent {
 		if (Objects.isNull(paramMap)) {
 			return HttpRequest.post(endPoint)
 					.header("requestId", RandomUtil.randomString(RANDOM_STRING_LENGTH))
-					.header("version", "VERSION")
+					.header("version", VERSION)
 					.timeout(timeout)
 					.body(body)
 					.execute()
@@ -64,7 +64,7 @@ public class ETopAgent implements ProtocolAgent {
 		} else {    //GET 请求
 			return HttpRequest.get(endPoint + toUrlParamString(paramMap))
 					.header("requestId", RandomUtil.randomString(RANDOM_STRING_LENGTH))
-					.header("version", "VERSION")
+					.header("version", VERSION)
 					.timeout(timeout)
 					.execute()
 					.body();
