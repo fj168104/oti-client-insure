@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.mr.sac</groupId>
+    <artifactId>oti-client-insure</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <packaging>jar</packaging>
+    <name>oti-client-insure</name>
+
+    <properties>
+        <mr.framework.version>0.0.4</mr.framework.version>
+        <oti.client>0.0.1-SNAPSHOT</oti.client>
+    </properties>
+
+    <dependencies>
+
+        <!--mr 基础库 -->
+        <dependency>
+            <groupId>com.mr.framework</groupId>
+            <artifactId>tool-all</artifactId>
+            <version>${oti.client}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/test/libs/oti-client-0.0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
+
+        <!--mr oti客户端 -->
+        <dependency>
+            <groupId>com.mr.sac</groupId>
+            <artifactId>oti-client</artifactId>
+            <version>${mr.framework.version}</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/src/test/libs/mr-framework-tool-0.0.4.jar</systemPath>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-continuation</artifactId>
+            <version>9.4.2.v20170220</version>
+        </dependency>
+
+        <dependency>
+            <!-- jsoup HTML parser library @ http://jsoup.org/ -->
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.10.2</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.2.v20170220</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.2</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.2</version>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.14.6</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
