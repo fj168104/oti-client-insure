@@ -4,8 +4,7 @@ import com.mr.framework.core.collection.CollectionUtil;
 import com.mr.framework.core.util.RandomUtil;
 import com.mr.framework.http.HttpRequest;
 import com.mr.sac.oti.protocal.ProtocolAgent;
-
-import java.util.LinkedHashMap;
+import org.apache.http.protocol.HTTP;
 import java.util.Map;
 import java.util.Objects;
 
@@ -13,6 +12,7 @@ import java.util.Objects;
  * Created by feng on 18-6-10
  */
 public class ETopAgent implements ProtocolAgent {
+	private static String APPLICATION_JSON = "application/json";
 	private int timeout = -1;
 	private Map<String, Object> paramMap;
 	private static int RANDOM_STRING_LENGTH = 32;
@@ -57,6 +57,7 @@ public class ETopAgent implements ProtocolAgent {
 			return HttpRequest.post(endPoint)
 					.header("requestId", RandomUtil.randomString(RANDOM_STRING_LENGTH))
 					.header("version", VERSION)
+					.header(HTTP.CONTENT_TYPE,APPLICATION_JSON)
 					.timeout(timeout)
 					.body(body)
 					.execute()
@@ -84,4 +85,5 @@ public class ETopAgent implements ProtocolAgent {
 		}
 		return sb.toString();
 	}
+
 }

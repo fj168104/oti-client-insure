@@ -14,8 +14,8 @@ public class ETopTest {
 
 
 	public static void main(String[] s) throws Exception {
-//		availableInsures();
-		queryVehicleCategoryConfig();
+		availableInsures();
+//		queryVehicleCategoryConfig();
 	}
 
 	/**
@@ -24,8 +24,8 @@ public class ETopTest {
 	 */
 	private static void availableInsures()throws Exception{
 		Map<String, Object> params = new LinkedHashMap<>();
-		params.put("contractId", "1");
-		params.put("cityCode", "1");
+		params.put("contractId", "4141");
+		params.put("cityCode", "110000");
 		Message message = EtopFacade.postAvailableInsures(params);
 		StaticLog.info(message.toString());
 	}
