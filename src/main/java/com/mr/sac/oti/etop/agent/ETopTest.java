@@ -14,9 +14,20 @@ public class ETopTest {
 
 
 	public static void main(String[] s) throws Exception {
-		availableInsures();
+//		availableInsures();
 //		queryVehicleCategoryConfig();
+//		doRenewalCheck();
+//		doRenewalConfirm();
+//		doConfirmVehicleType();
+		doVerifyBjApplyVerifyCode();
+
+		//TODO
+//		doApplyQuery();
+//		doApplyQuote();
+//		doApplyAudit();
+
 	}
+
 
 	/**
 	 * 可用保险公司信息查询
@@ -46,6 +57,100 @@ public class ETopTest {
 		for(Message m : messages){
 			StaticLog.info(m.getField("name").toString());
 		}
-
 	}
+
+	/**
+	 * 续保检查
+	 * @throws Exception
+	 */
+	private static void doRenewalCheck()throws Exception{
+		Map<String, Object> params = new LinkedHashMap<>();
+		params.put("carMark", "京GQQ822");
+		params.put("cityCode", "110000");
+		params.put("useType", "210");
+		params.put("vehicleCategory", "A");
+		params.put("carMarkType", "02");
+		params.put("mediaSource", "byx");
+		params.put("contractId", "4141");
+		params.put("btVehicleCategory", "K33");
+		params.put("pcVehicleCategory", "A0");
+
+		Message message = EtopFacade.postDoRenewalCheck(params);
+		StaticLog.info(message.toString());
+	}
+
+	/**
+	 * 续保验证
+	 * @throws Exception
+	 */
+	private static void doRenewalConfirm()throws Exception{
+		Map<String, Object> params = new LinkedHashMap<>();
+		params.put("certiShortNo", "290010");
+		params.put("tid", "D0MGW2Uwe03eVspJ");
+		Message message = EtopFacade.postDoRenewalConfirm(params);
+		StaticLog.info(message.toString());
+	}
+
+	/**
+	 * 投保查询
+	 * @throws Exception
+	 */
+	private static void doApplyQuery()throws Exception{
+		Map<String, Object> params = new LinkedHashMap<>();
+
+		//参数设置
+		Message message = EtopFacade.postApplyQuery(params);
+		StaticLog.info(message.toString());
+	}
+
+	/**
+	 * 车型确认
+	 * @throws Exception
+	 */
+	private static void doConfirmVehicleType()throws Exception{
+		Map<String, Object> params = new LinkedHashMap<>();
+		params.put("vehicleTypeCode", "K33");
+		params.put("tid", "D0MGW2Uwe03eVspJ");
+		Message message = EtopFacade.postConfirmVehicleType(params);
+		StaticLog.info(message.toString());
+	}
+
+	/**
+	 * 保费计算
+	 * @throws Exception
+	 */
+	private static void doApplyQuote()throws Exception{
+		Map<String, Object> params = new LinkedHashMap<>();
+
+		params.put("tid", "D0MGW2Uwe03eVspJ");
+		Message message = EtopFacade.postApplyQuote(params);
+		StaticLog.info(message.toString());
+	}
+
+	/**
+	 * 申请投保
+	 * @throws Exception
+	 */
+	private static void doApplyAudit()throws Exception{
+		Map<String, Object> params = new LinkedHashMap<>();
+
+		params.put("tid", "D0MGW2Uwe03eVspJ");
+		Message message = EtopFacade.postApplyAudit(params);
+		StaticLog.info(message.toString());
+	}
+
+	/**
+	 * 补充投保手机验证码（北京机构）
+	 * @throws Exception
+	 */
+	private static void doVerifyBjApplyVerifyCode()throws Exception{
+		Map<String, Object> params = new LinkedHashMap<>();
+		params.put("validateCode", "000000");
+		params.put("insureCode", "pingan");
+		params.put("tid", "D0MGW2Uwe03eVspJ");
+		Message message = EtopFacade.postVerifyBjApplyVerifyCode(params);
+		StaticLog.info(message.toString());
+	}
+
+
 }

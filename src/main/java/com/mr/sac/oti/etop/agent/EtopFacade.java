@@ -114,7 +114,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction("panda.insure.doRenewalConfirm.request",
 				"panda.insure.doRenewalConfirm.response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + "panda.insure.doRenewalConfirm");
 	}
@@ -157,7 +157,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
 				messagePrefix + ".response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
 	}
@@ -188,7 +188,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
 				messagePrefix + ".response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
 	}
@@ -236,7 +236,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
 				messagePrefix + ".response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
 	}

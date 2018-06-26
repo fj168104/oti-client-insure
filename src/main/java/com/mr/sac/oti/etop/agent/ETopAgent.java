@@ -2,9 +2,11 @@ package com.mr.sac.oti.etop.agent;
 
 import com.mr.framework.core.collection.CollectionUtil;
 import com.mr.framework.core.util.RandomUtil;
+import com.mr.framework.core.util.StrUtil;
 import com.mr.framework.http.HttpRequest;
 import com.mr.sac.oti.protocal.ProtocolAgent;
 import org.apache.http.protocol.HTTP;
+
 import java.util.Map;
 import java.util.Objects;
 
@@ -14,9 +16,11 @@ import java.util.Objects;
 public class ETopAgent implements ProtocolAgent {
 	private static String APPLICATION_JSON = "application/json";
 	private int timeout = -1;
-	private Map<String, Object> paramMap;
 	private static int RANDOM_STRING_LENGTH = 32;
 	private static String VERSION = "1.0.0";
+
+	private Map<String, Object> paramMap;
+	private String tid;
 
 	/**
 	 * POST请求
@@ -24,8 +28,13 @@ public class ETopAgent implements ProtocolAgent {
 	public ETopAgent() {
 	}
 
+	public ETopAgent(String tid) {
+		this.tid = tid;
+	}
+
 	/**
 	 * POST请求
+	 *
 	 * @param timeout
 	 */
 	public ETopAgent(int timeout) {
@@ -34,6 +43,7 @@ public class ETopAgent implements ProtocolAgent {
 
 	/**
 	 * GET请求
+	 *
 	 * @param paramMap
 	 */
 	public ETopAgent(Map<String, Object> paramMap) {
@@ -42,6 +52,7 @@ public class ETopAgent implements ProtocolAgent {
 
 	/**
 	 * GET请求
+	 *
 	 * @param paramMap
 	 */
 	public ETopAgent(Map<String, Object> paramMap, int timeout) {
@@ -52,16 +63,19 @@ public class ETopAgent implements ProtocolAgent {
 	@Override
 	public Object exchange(String endPoint, Object mObject) {
 		String body = String.valueOf(mObject);
+
 		//POST 请求
 		if (Objects.isNull(paramMap)) {
-			return HttpRequest.post(endPoint)
+			HttpRequest request = HttpRequest.post(endPoint)
 					.header("requestId", RandomUtil.randomString(RANDOM_STRING_LENGTH))
 					.header("version", VERSION)
-					.header(HTTP.CONTENT_TYPE,APPLICATION_JSON)
-					.timeout(timeout)
-					.body(body)
-					.execute()
-					.body();
+					.header(HTTP.CONTENT_TYPE, APPLICATION_JSON);
+
+
+			if (StrUtil.isNotEmpty(tid)) {
+				request.header("tid", tid);
+			}
+			return request.timeout(timeout).body(body).execute().body();
 		} else {    //GET 请求
 			return HttpRequest.get(endPoint + toUrlParamString(paramMap))
 					.header("requestId", RandomUtil.randomString(RANDOM_STRING_LENGTH))
