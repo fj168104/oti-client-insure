@@ -19,7 +19,7 @@ public class EtopFacade {
 			"panda.insure.queryVehicleCategoryConfig.request", "panda.insure.queryVehicleCategoryConfig.response",
 			"panda.insure.doRenewalCheck.request", "panda.insure.doRenewalCheck.response",
 			"panda.insure.doRenewalConfirm.request", "panda.insure.doRenewalConfirm.response",
-			"panda.insure.applyQuery.requset", "panda.insure.applyQuery.response",
+			"panda.insure.applyQuery.request", "panda.insure.applyQuery.response",
 			"panda.insure.confirmVehicleType.request", "panda.insure.confirmVehicleType.response",
 			"panda.insure.applyQuote.request", "panda.insure.applyQuote.response",
 			"panda.insure.applyAudit.request", "panda.insure.applyAudit.response",
@@ -137,7 +137,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction("panda.insure.applyQuery.request",
 				"panda.insure.applyQuery.response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + "panda.insure.applyQuery");
 	}
@@ -445,7 +445,7 @@ public class EtopFacade {
 	 *
 	 * @return OTIContainer
 	 */
-	private static OTIContainer createOTIContainer() {
+	public static OTIContainer createOTIContainer() {
 
 		//获取Transaction实例
 		OTIContainer otiContainer = OTIContainer.getInstance();

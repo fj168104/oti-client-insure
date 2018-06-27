@@ -1,6 +1,7 @@
 package com.mr.sac.oti.etop.agent;
 
 import com.mr.framework.log.StaticLog;
+import com.mr.sac.oti.OTIContainer;
 import com.mr.sac.oti.bean.Message;
 
 import java.util.LinkedHashMap;
@@ -12,14 +13,16 @@ import java.util.Map;
  */
 public class ETopTest {
 
-
+	static String TID = "C0MGAxXIT00glfJD";
 	public static void main(String[] s) throws Exception {
-//		availableInsures();
+
+
+		availableInsures();
 //		queryVehicleCategoryConfig();
 //		doRenewalCheck();
 //		doRenewalConfirm();
 //		doConfirmVehicleType();
-		doVerifyBjApplyVerifyCode();
+//		doVerifyBjApplyVerifyCode();	//验证码
 
 		//TODO
 //		doApplyQuery();
@@ -86,7 +89,7 @@ public class ETopTest {
 	private static void doRenewalConfirm()throws Exception{
 		Map<String, Object> params = new LinkedHashMap<>();
 		params.put("certiShortNo", "290010");
-		params.put("tid", "D0MGW2Uwe03eVspJ");
+		params.put("tid", TID);
 		Message message = EtopFacade.postDoRenewalConfirm(params);
 		StaticLog.info(message.toString());
 	}
@@ -97,6 +100,44 @@ public class ETopTest {
 	 */
 	private static void doApplyQuery()throws Exception{
 		Map<String, Object> params = new LinkedHashMap<>();
+		OTIContainer otiContainer = EtopFacade.createOTIContainer();
+		Message reqMessage = otiContainer.newMessage("panda.insure.applyQuery.request");
+
+		Message vehicleInfoMessage = reqMessage.getField("vehicleInfo").getMessageTemplete().clone();
+		vehicleInfoMessage.getField("carMark").setValue("京*");
+		vehicleInfoMessage.getField("rackNo").setValue("L12345123451234512");
+		vehicleInfoMessage.getField("engineNo").setValue("12345678");
+		vehicleInfoMessage.getField("registerDate").setValue("2018-06-25");
+		vehicleInfoMessage.getField("brandModel").setValue("昂科雷ENCLAVE 3.6L");
+		vehicleInfoMessage.getField("fuelType").setValue("A");
+		vehicleInfoMessage.getField("invoiceNo").setValue("132131321323");
+		vehicleInfoMessage.getField("invoiceDate").setValue("2018-05-25");
+		vehicleInfoMessage.getField("ifChangeOwner").setValue("0");
+		vehicleInfoMessage.getField("vehilceCode").setValue("");
+		params.put("vehicleInfo", vehicleInfoMessage);
+
+		Message ownerInfoMessage = reqMessage.getField("ownerInfo").getMessageTemplete().clone();
+		ownerInfoMessage.getField("carOwner").setValue("冯江");
+		ownerInfoMessage.getField("certiType").setValue("01");
+		ownerInfoMessage.getField("certiNo").setValue("14010719820625221X");
+		ownerInfoMessage.getField("birthday").setValue("1982-06-25");
+		ownerInfoMessage.getField("gender").setValue("");
+		params.put("ownerInfo", ownerInfoMessage);
+
+		Message insuredInfoMessage = reqMessage.getField("insuredInfo").getMessageTemplete().clone();
+		insuredInfoMessage.getField("name").setValue("冯江");
+		insuredInfoMessage.getField("certiType").setValue("01");
+		insuredInfoMessage.getField("certiNo").setValue("14010719820625221X");
+		insuredInfoMessage.getField("birthday").setValue("1982-06-25");
+		insuredInfoMessage.getField("gender").setValue("");
+		params.put("insuredInfo", insuredInfoMessage);
+
+		Message applyInfoMessage = reqMessage.getField("applyInfo").getMessageTemplete().clone();
+		applyInfoMessage.getField("forceBeginDate").setValue("2018-06-25");
+		applyInfoMessage.getField("bizBeginDate").setValue("2018-06-25");
+		params.put("applyInfo", applyInfoMessage);
+
+		params.put("tid", TID);
 
 		//参数设置
 		Message message = EtopFacade.postApplyQuery(params);
@@ -109,8 +150,8 @@ public class ETopTest {
 	 */
 	private static void doConfirmVehicleType()throws Exception{
 		Map<String, Object> params = new LinkedHashMap<>();
-		params.put("vehicleTypeCode", "K33");
-		params.put("tid", "D0MGW2Uwe03eVspJ");
+		params.put("vehicleTypeCode", "AKI1009TYQ");
+		params.put("tid", TID);
 		Message message = EtopFacade.postConfirmVehicleType(params);
 		StaticLog.info(message.toString());
 	}
@@ -122,7 +163,7 @@ public class ETopTest {
 	private static void doApplyQuote()throws Exception{
 		Map<String, Object> params = new LinkedHashMap<>();
 
-		params.put("tid", "D0MGW2Uwe03eVspJ");
+		params.put("tid", TID);
 		Message message = EtopFacade.postApplyQuote(params);
 		StaticLog.info(message.toString());
 	}
@@ -147,7 +188,7 @@ public class ETopTest {
 		Map<String, Object> params = new LinkedHashMap<>();
 		params.put("validateCode", "000000");
 		params.put("insureCode", "pingan");
-		params.put("tid", "D0MGW2Uwe03eVspJ");
+		params.put("tid", TID);
 		Message message = EtopFacade.postVerifyBjApplyVerifyCode(params);
 		StaticLog.info(message.toString());
 	}
