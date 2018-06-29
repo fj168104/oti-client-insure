@@ -21,6 +21,7 @@ public class ETopAgent implements ProtocolAgent {
 
 	private Map<String, Object> paramMap;
 	private String tid;
+	private String token;
 
 	/**
 	 * POST请求
@@ -30,6 +31,11 @@ public class ETopAgent implements ProtocolAgent {
 
 	public ETopAgent(String tid) {
 		this.tid = tid;
+	}
+
+	public ETopAgent(String tid, String token){
+		this.tid = tid;
+		this.token = token;
 	}
 
 	/**
@@ -71,10 +77,13 @@ public class ETopAgent implements ProtocolAgent {
 					.header("version", VERSION)
 					.header(HTTP.CONTENT_TYPE, APPLICATION_JSON);
 
-
 			if (StrUtil.isNotEmpty(tid)) {
 				request.header("tid", tid);
 			}
+			if (StrUtil.isNotEmpty(token)) {
+				request.header("accToken", token);
+			}
+
 			return request.timeout(timeout).body(body).execute().body();
 		} else {    //GET 请求
 			return HttpRequest.get(endPoint + toUrlParamString(paramMap))

@@ -1,5 +1,6 @@
 package com.mr.sac.oti.etop.agent;
 
+import com.mr.framework.crypto.digest.DigestUtil;
 import com.mr.framework.log.StaticLog;
 import com.mr.sac.oti.OTIContainer;
 import com.mr.sac.oti.bean.Message;
@@ -14,7 +15,8 @@ import java.util.Map;
  */
 public class ETopTest {
 
-	static String TID = "S0MHAtahk00B448i";
+	static String TID = "S0MHCQIkl03y0o0B";
+	static String token = "9f89ece8475e9bdd3ad14540a05f8d3f";
 
 	//京*
 	public static void main(String[] s) throws Exception {
@@ -22,19 +24,23 @@ public class ETopTest {
 
 //		availableInsures();
 //		queryVehicleCategoryConfig();
+
 //		doRenewalCheck();
-//		doRenewalConfirm();
 //		doApplyQuery();
+//		Thread.sleep(1000);
 //		doConfirmVehicleType(); 	//字段已经调整
 //		doPostModifyVehicleInfo();
+//		Thread.sleep(1000);
 //		doApplyQuote();
-		doApplyAudit();
+//		Thread.sleep(1000);
+//		doPostVerifyMediaSourceInfo();
+//		doApplyAudit();
 
-//		doVerifyBjApplyVerifyCode();	//验证码
+		doVerifyBjApplyVerifyCode();    //验证码
 //		doPostCanQuoteInsures();
 //		doPostQuerySpecialList();
 
-
+//		doRenewalConfirm();
 
 
 	}
@@ -90,6 +96,7 @@ public class ETopTest {
 		params.put("pcVehicleCategory", "A0");
 
 		Message message = EtopFacade.postDoRenewalCheck(params);
+		TID = String.valueOf(message.getField("tid").getValue());
 		StaticLog.info(message.toString());
 	}
 
@@ -120,7 +127,7 @@ public class ETopTest {
 		vehicleInfoMessage.getField("carMark").setValue("京*");
 		vehicleInfoMessage.getField("rackNo").setValue("L12345123451234512");
 		vehicleInfoMessage.getField("engineNo").setValue("12345678");
-		vehicleInfoMessage.getField("registerDate").setValue("2018-06-30");
+		vehicleInfoMessage.getField("registerDate").setValue("2018-07-01");
 		vehicleInfoMessage.getField("brandModel").setValue("昂科雷ENCLAVE 3.6L");
 		vehicleInfoMessage.getField("fuelType").setValue("A");
 		vehicleInfoMessage.getField("invoiceNo").setValue("132131321323");
@@ -146,8 +153,8 @@ public class ETopTest {
 		params.put("insuredInfo", insuredInfoMessage);
 
 		Message applyInfoMessage = reqMessage.getField("applyInfo").getMessageTemplete().clone();
-		applyInfoMessage.getField("forceBeginDate").setValue("2018-06-30");
-		applyInfoMessage.getField("bizBeginDate").setValue("2018-06-30");
+		applyInfoMessage.getField("forceBeginDate").setValue("2018-07-01");
+		applyInfoMessage.getField("bizBeginDate").setValue("2018-07-01");
 		params.put("applyInfo", applyInfoMessage);
 
 		params.put("tid", TID);
@@ -232,6 +239,23 @@ public class ETopTest {
 	}
 
 	/**
+	 * 第三方鉴权
+	 *
+	 * @throws Exception
+	 */
+	private static void doPostVerifyMediaSourceInfo() throws Exception {
+		Map<String, Object> params = new LinkedHashMap<>();
+		params.put("mediaSource", "byx");
+		params.put("clientId", "126");
+		params.put("clientSecret", DigestUtil.md5Hex("126" + "_" + "123456"));
+		params.put("apiVersion", "1.0.0");
+		params.put("tid", TID);
+		Message message = EtopFacade.postVerifyMediaSourceInfo(params);
+		token = String.valueOf(message.getField("token").getValue());
+		StaticLog.info(message.toString());
+	}
+
+	/**
 	 * 申请投保
 	 *
 	 * @throws Exception
@@ -288,6 +312,7 @@ public class ETopTest {
 		params.put("insureCode", "pingan");
 
 		params.put("tid", TID);
+		params.put("token", token);
 		Message message = EtopFacade.postApplyAudit(params);
 		StaticLog.info(message.toString());
 	}
@@ -299,9 +324,10 @@ public class ETopTest {
 	 */
 	private static void doVerifyBjApplyVerifyCode() throws Exception {
 		Map<String, Object> params = new LinkedHashMap<>();
-		params.put("validateCode", "000000");
+		params.put("validateCode", "2F47DE");
 		params.put("insureCode", "pingan");
 		params.put("tid", TID);
+		params.put("token", token);
 		Message message = EtopFacade.postVerifyBjApplyVerifyCode(params);
 		StaticLog.info(message.toString());
 	}

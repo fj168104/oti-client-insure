@@ -32,6 +32,7 @@ public class EtopFacade {
 			"panda.insure.addOptionalSpecial.request", "panda.insure.addOptionalSpecial.response",
 			"panda.insure.modifyOptionalSpecial.request", "panda.insure.modifyOptionalSpecial.response",
 			"panda.insure.deleteOptionalSpecial.request", "panda.insure.deleteOptionalSpecial.response",
+			"panda.insure.verifyMediaSourceInfo.request", "panda.insure.verifyMediaSourceInfo.response"
 	};
 
 	private static String ETOP_SERVICE_PRE = "http://panda.etoppaas.com.cn/api/service/";
@@ -194,6 +195,29 @@ public class EtopFacade {
 	}
 
 	/**
+	 * <p></>/panda.insure.verifyMediaSourceInfo
+	 * 第三方鉴权
+	 * params
+	 * mediaSource 媒体来源
+	 * clientId 客户端 ID
+	 * clientSecret MD5(客户端 id+”_”+客户端密钥)
+	 * apiVersion 接口版本号(1.0.0)
+	 *
+	 *
+	 * @return
+	 */
+	public static Message postVerifyMediaSourceInfo(Map<String, Object> params) throws Exception {
+		String messagePrefix = "panda.insure.verifyMediaSourceInfo";
+		OTIContainer otiContainer = createOTIContainer();
+
+		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
+				messagePrefix + ".response",
+				new ETopAgent(String.valueOf(params.get("tid"))));
+
+		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
+	}
+
+	/**
 	 * <p></>/panda.insure.applyAudit
 	 * 申请投保
 	 * params
@@ -215,7 +239,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
 				messagePrefix + ".response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid")), String.valueOf(params.get("token"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
 	}
@@ -284,7 +308,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
 				messagePrefix + ".response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
 	}
@@ -305,7 +329,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
 				messagePrefix + ".response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
 	}
@@ -329,7 +353,7 @@ public class EtopFacade {
 
 		Transaction transaction = otiContainer.newTransaction(messagePrefix + ".request",
 				messagePrefix + ".response",
-				new ETopAgent());
+				new ETopAgent(String.valueOf(params.get("tid"))));
 
 		return action(transaction, params, ETOP_SERVICE_PRE + messagePrefix);
 	}
