@@ -18,23 +18,23 @@ public class ETopTest {
 	static String TID = "S0MHCQIkl03y0o0B";
 	static String token = "9f89ece8475e9bdd3ad14540a05f8d3f";
 
-	//京*
+	//京*  京GQQ822
 	public static void main(String[] s) throws Exception {
 
 
 //		availableInsures();
 //		queryVehicleCategoryConfig();
 
-//		doRenewalCheck();
-//		doApplyQuery();
-//		Thread.sleep(1000);
-//		doConfirmVehicleType(); 	//字段已经调整
-//		doPostModifyVehicleInfo();
-//		Thread.sleep(1000);
-//		doApplyQuote();
-//		Thread.sleep(1000);
-//		doPostVerifyMediaSourceInfo();
-//		doApplyAudit();
+		doRenewalCheck();
+		doApplyQuery();
+		Thread.sleep(1000);
+		doConfirmVehicleType(); 	//字段已经调整
+		doPostModifyVehicleInfo();
+		Thread.sleep(1000);
+		doApplyQuote();
+		Thread.sleep(1000);
+		doPostVerifyMediaSourceInfo();
+		doApplyAudit();
 
 		doVerifyBjApplyVerifyCode();    //验证码
 //		doPostCanQuoteInsures();
