@@ -17,26 +17,27 @@ public class ETopTest {
 
 	static String TID = "S0MHCQIkl03y0o0B";
 	static String token = "9f89ece8475e9bdd3ad14540a05f8d3f";
-
+	static String carMark = "京*";
+	static String quotationDate = "2018-07-03";
 	//京*  京GQQ822
 	public static void main(String[] s) throws Exception {
 
 
 //		availableInsures();
-//		queryVehicleCategoryConfig();
+		queryVehicleCategoryConfig();
 
-		doRenewalCheck();
-		doApplyQuery();
-		Thread.sleep(1000);
-		doConfirmVehicleType(); 	//字段已经调整
-		doPostModifyVehicleInfo();
-		Thread.sleep(1000);
-		doApplyQuote();
-		Thread.sleep(1000);
-		doPostVerifyMediaSourceInfo();
-		doApplyAudit();
+//		doRenewalCheck();
+//		doApplyQuery();
+//		Thread.sleep(1000);
+//		doConfirmVehicleType(); 	//字段已经调整
+//		doPostModifyVehicleInfo();
+//		Thread.sleep(1000);
+//		doApplyQuote();
+//		Thread.sleep(1000);
+//		doPostVerifyMediaSourceInfo();
+//		doApplyAudit();
 
-		doVerifyBjApplyVerifyCode();    //验证码
+//		doVerifyBjApplyVerifyCode();    //验证码
 //		doPostCanQuoteInsures();
 //		doPostQuerySpecialList();
 
@@ -85,7 +86,7 @@ public class ETopTest {
 	 */
 	private static void doRenewalCheck() throws Exception {
 		Map<String, Object> params = new LinkedHashMap<>();
-		params.put("carMark", "京*");
+		params.put("carMark", carMark);
 		params.put("cityCode", "110000");
 		params.put("useType", "210");
 		params.put("vehicleCategory", "A");
@@ -124,10 +125,10 @@ public class ETopTest {
 		Message reqMessage = otiContainer.newMessage("panda.insure.applyQuery.request");
 
 		Message vehicleInfoMessage = reqMessage.getField("vehicleInfo").getMessageTemplete().clone();
-		vehicleInfoMessage.getField("carMark").setValue("京*");
+		vehicleInfoMessage.getField("carMark").setValue(carMark);
 		vehicleInfoMessage.getField("rackNo").setValue("L12345123451234512");
 		vehicleInfoMessage.getField("engineNo").setValue("12345678");
-		vehicleInfoMessage.getField("registerDate").setValue("2018-07-01");
+		vehicleInfoMessage.getField("registerDate").setValue("2018-07-03");
 		vehicleInfoMessage.getField("brandModel").setValue("昂科雷ENCLAVE 3.6L");
 		vehicleInfoMessage.getField("fuelType").setValue("A");
 		vehicleInfoMessage.getField("invoiceNo").setValue("132131321323");
@@ -153,8 +154,8 @@ public class ETopTest {
 		params.put("insuredInfo", insuredInfoMessage);
 
 		Message applyInfoMessage = reqMessage.getField("applyInfo").getMessageTemplete().clone();
-		applyInfoMessage.getField("forceBeginDate").setValue("2018-07-01");
-		applyInfoMessage.getField("bizBeginDate").setValue("2018-07-01");
+		applyInfoMessage.getField("forceBeginDate").setValue("2018-07-03");
+		applyInfoMessage.getField("bizBeginDate").setValue("2018-07-03");
 		params.put("applyInfo", applyInfoMessage);
 
 		params.put("tid", TID);
